@@ -16,7 +16,7 @@ async function getAddressFromCEP(cep: string) {
 
   const cepData = { logradouro, complemento, bairro, cidade: localidade, uf };
 
-  return cepData
+  return cepData;
 }
 
 async function getOneWithAddressByUserId(userId: number): Promise<GetOneWithAddressByUserIdResult> {
@@ -50,7 +50,7 @@ async function createOrUpdateEnrollmentWithAddress(params: CreateOrUpdateEnrollm
   //TODO - Verificar se o CEP é válido
   const validCEP = await getAddressFromCEP(address.cep);
 
-  if(!validCEP.logradouro){
+  if (!validCEP.logradouro) {
     throw requestError(400, "CEP inválido");
   }
   const newEnrollment = await enrollmentRepository.upsert(params.userId, enrollment, exclude(enrollment, "userId"));
